@@ -1,9 +1,11 @@
 import React from 'react';
-import { renderIntoDocument, fireEvent } from 'react-testing-library';
+import { render, fireEvent, cleanup } from 'react-testing-library';
 import Button from './button';
 
+afterEach(cleanup);
+
 test('Button works', () => {
-  const { getByText } = renderIntoDocument(<Button>Test</Button>);
+  const { getByText } = render(<Button>Test</Button>);
   const buttonNode = getByText('Test');
   fireEvent.click(buttonNode);
   expect(buttonNode.textContent).toBe('Toggled');
