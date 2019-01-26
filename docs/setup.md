@@ -1,16 +1,95 @@
-# eslint-config-react-minimal
+# Parcel Setup for React
 
-A very minimal set of rules to help you get started writing React.
+This is a guide for setting up a React app to be bundled with [Parcel](https://parceljs.org/) 📦
 
-## Usage
+## Quick start
 
-ESLint requires anything this config depends on to be installed by the end-user (sorry).
+If you don't want to go through installing everything step-by-step you can instead:
 
-```shell
-npm install -D eslint babel-eslint eslint-plugin-import eslint-plugin-react eslint-config-react-minimal`
+1. Clone this repo
+1. `npm i`
+1. `npm run dev` to start the development server
+
+## Medium start
+
+Step-by-step instructions installing every dependency we need to get started.
+
+If you want a more detailed explanation of what everything does then have a look at the [what everything does](#what-everything-does) section.
+
+### Install
+
+1.  `npm init -y` to initialise your repo
+2.  `npm i -D parcel-bundler @babel/preset-env @babel/preset-react babel-plugin-transform-class-properties` to install dev dependencies
+3.  `npm i react react-dom` to install dependencies
+4.  `"start": parcel index.html` add start script to `package.json`
+5.  Create `.babelrc` file containing:
+
+```json
+{
+  "presets": ["@babel/preset-env", "@babel/preset-react"],
+  "plugins": ["@babel/plugin-proposal-class-properties"]
+}
 ```
 
-Then create an `.eslintrc` file containing:
+Parcel will automatically use Babel to transpile all ES6 and React syntax out of the box, but we want to use a new feature (class properties), so we need to tell Parcel to use an extra plugin.
+
+5.  Create `index.html` file containing:
+
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>My App</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script src="index.js"></script>
+  </body>
+</html>
+```
+
+Parcel will use this as an 'entrypoint' to your app. It'll find the `index.js` script in there and follow all the `import`s to bundle everything. Then it'll replace the `index.js` with the final JS bundle when it outputs the `dist` folder.
+
+6.  Create `index.js` with your react setup:
+
+```js
+import React from 'react';
+import { render } from 'react-dom';
+
+const App = () => <h1>Hello World</h1>;
+
+render(<App />, document.getElementById('root'));
+```
+
+7. Setup your build scripts in `package.json`:
+
+```json
+{
+  "scripts": {
+    "dev": "parcel index.html",
+    "build": "parcel build index.html"
+  }
+}
+```
+
+8. Run `npm run dev` to start the development server.
+
+### Test Setup
+
+We need a few extra things to get Jest working with our ES6+ and React code.
+
+1.  `npm i -D jest` to install testing dependencies
+2.  Add `"test": jest --watch` to your npm scripts in `package.json`
+
+Jest will read the `.babelrc` file to know what presets/plugins it should use.
+
+### Linting Setup
+
+**Note:** make sure you don't have ESLint installed globally (`npm rm -g eslint`). Otherwise you can get really weird errors.
+
+1.  `npm install -D eslint babel-eslint eslint-plugin-import eslint-plugin-react eslint-config-react-minimal` to install dev dependencies
+2.  create `.eslintrc` file with:
 
 ```json
 {
@@ -18,62 +97,43 @@ Then create an `.eslintrc` file containing:
 }
 ```
 
-This will enable the (optional) recommended default ESLint rules, plus the React specific rules from this config.
+I've packaged up all the necessary config into [eslint-config-react-minimal](https://github.com/oliverjam/eslint-config-react-minimal). Check out the readme if you want more information.
 
-### What am I installing?
+3. Optionally create an npm script if you'd like to lint from the command line (instead of relying on editor integrations):
 
-1. [ESLint](https://eslint.org/docs/) itself
-1. [babel-eslint](https://github.com/babel/babel-eslint): lets ESLint understand any valid Babel syntax (e.g. JSX/ES6+)
-1. [eslint-plugin-import](https://github.com/benmosher/eslint-plugin-import): Ensures your imports/exports are valid and won't result in errors
-1. [eslint-plugin-react](https://github.com/yannickcr/eslint-plugin-react): provides all the React specific rules
-1. eslint-config-react-minimal: this config, which handles all the set-up for the previous packages automatically
-
-## Philosophy
-
-eslint-plugin-react has a _ton_ of rules, some of which are either questionably useful or designed to help enforce certain patterns in large projects.
-
-If you're just starting out in React all you really need are simple rules to help correct typos, ensure your imports are correct and remind you of certain React conventions.
-
-This config is an alternative to figuring out which of the 50+ eslint-plugin-react rules to disable 🙃.
-
-## Config
-
-There are a few bits of config you need to remember setting up ESLint, so these are set for you.
-
-### Environments
-
-ESLint doesn't know where your code is going to run, so it can't make assumptions about what may be available in the environment. This config configures browser, ES6 and Jest environments. This means the linter won't complain that `fetch` or `test` are undefined, since it knows they're available on the global scope.
-
-## Rules
-
-Look in [`index.js`](./index.js) for a full list of all the enabled rules. There are comments linking to the documentation for each rule if you're curious what they do.
-
-Here are a few examples of problems this config will highlight:
-
-### Bad imports
-
-If you haven't used ES Modules much before you might confuse default/named imports/exports, or forget to export stuff from a file you're importing. You'll get a linter error for lots of these mistakes. For example:
-
-```js
-// src/button.js
-export default function Button({ children }) {
-  return <button>{children}</button>;
+```json
+{
+  "scripts": {
+    "lint": "eslint src/"
+  }
 }
-
-// src/index.js
-import { Button } from './button';
-// error as Button was _default_ exported
-// but is being _named_ imported
 ```
 
-### Missing React import
+4. You may need to restart your editor
 
-It can be easy to forget to import React into any file that renders components.
+## What everything does
 
-This is because Babel turns JSX like `<Button>Submit</Button>` into function calls like `React.createElement(Button, {}, 'Submit')`.
+We want to be able to write modular code using the [ES Modules](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import) `import`/`export` syntax. We also want to be able to write modern ES6+ and custom React syntax (JSX).
 
-The transpiled version makes it obvious that you need React in scope, but if you forget the linter will warn you.
+Since browsers don't understand these things we need something to process our source files, transpile them with Babel and then bundle them together into files the browser understands.
 
-### Forgetting to return in `render()`
+Parcel automatically uses the [`@babel/preset-env`](https://babeljs.io/env/) and [`@babel/preset-react`](https://babeljs.io/docs/plugins/preset-react/) presets to transpile ES6+ and JSX. We've also added the `babel-plugin-transform-class-properties`(https://babeljs.io/docs/plugins/transform-class-properties/) plugin so we can write our class state without needing a constructor function.
 
-It's common to forget to actually return any elements from your class component's render method, so you'll get a linter warning if you do that as well (since React will error if you don't return anything).
+Although Parcel defaults to using `@babel/preset-env` and `@babel/preset-react` Jest doesn't, which is why we had to install and specify them.
+
+Your dev script (`parcel src/index.html`) will tell Parcel to use the `index.html` file as an 'entrypoint'.
+
+This means Parcel will start there, find your JS file linked in a script tag, then follow the trail of `import`s until it has built up a 'tree' of your entire app.
+
+Then it smushes all the files together in a smart way until it's left with a single JS file.
+
+It copies your `index.html` file into a `dist` folder, along with the newly bundled JS file (which it also links in the new `index.html` for you).
+
+If you import CSS or SVGs (or other resources Parcel understands) they'll get picked up too. The CSS will all be smushed together into one file and copied into the `dist` folder. Any SVG files will be copied across as they are (although they will get a hashed filename for caching purposes).
+
+You can open up the `dist` folder and look around. The JS Parcel produces will be weird (it has to use lots of IIFEs and closures to ensure modules are isolated correctly inside one big file) but it should be readable.
+
+### Dependencies
+
+- `parcel-bundler`: will do the actual bundling
+- `babel-plugin-transform-class-properties`: lets us write our state as an object directly on a class ([more info here](https://github.com/oliverjam/intro-react-workshop/blob/master/03-surpass-with-class/README.md#state))
