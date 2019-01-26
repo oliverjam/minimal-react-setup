@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "jest --watch",
-    "start": "parcel index.html",
-    "build": "parcel build index.html"
+    "dev": "parcel src/index.html",
+    "build": "parcel build src/index.html",
   },
   "keywords": [],
   "author": "",
