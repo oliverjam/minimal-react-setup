@@ -1,20 +1,8 @@
 # Parcel Setup for React
 
-This is a guide for setting up a React app to be bundled with [Parcel](https://parceljs.org/) 📦
+This is a guide for setting up a React app to be bundled with [Parcel](https://parceljs.org/) 📦. We'll also configure ESLint and Jest.
 
-## Quick start
-
-If you don't want to go through installing everything step-by-step you can instead:
-
-1. Clone this repo
-1. `npm i`
-1. `npm run dev` to start the development server
-
-## Medium start
-
-Step-by-step instructions installing every dependency we need to get started.
-
-If you want a more detailed explanation of what everything does then have a look at the [what everything does](#what-everything-does) section.
+If you want a more detailed explanation of what Parcel does then have a look at the [Parcel document](./parcel.md).
 
 ### Install
 
@@ -33,7 +21,7 @@ If you want a more detailed explanation of what everything does then have a look
 
 Parcel will automatically use Babel to transpile all ES6 and React syntax out of the box, but we want to use a new feature (class properties), so we need to tell Parcel to use an extra plugin.
 
-5.  Create `index.html` file containing:
+5.  Create an `index.html` file containing:
 
 ```html
 <!DOCTYPE html>
