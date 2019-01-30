@@ -9,8 +9,7 @@ If you want a more detailed explanation of what Parcel does then have a look at 
 1.  `npm init -y` to initialise your repo
 2.  `npm i -D parcel-bundler @babel/preset-env @babel/preset-react babel-plugin-transform-class-properties` to install dev dependencies
 3.  `npm i react react-dom` to install dependencies
-4.  `"start": parcel index.html` add start script to `package.json`
-5.  Create `.babelrc` file containing:
+4.  Create `.babelrc` file containing:
 
 ```json
 {
@@ -42,12 +41,12 @@ Parcel will use this as an 'entrypoint' to your app. It'll find the `index.js` s
 6.  Create `index.js` with your react setup:
 
 ```js
-import React from 'react';
-import { render } from 'react-dom';
+import React from "react";
+import { render } from "react-dom";
 
 const App = () => <h1>Hello World</h1>;
 
-render(<App />, document.getElementById('root'));
+render(<App />, document.getElementById("root"));
 ```
 
 7. Setup your build scripts in `package.json`:
@@ -68,7 +67,7 @@ render(<App />, document.getElementById('root'));
 We need a few extra things to get Jest working with our ES6+ and React code.
 
 1.  `npm i -D jest` to install testing dependencies
-2.  Add `"test": jest --watch` to your npm scripts in `package.json`
+2.  Add `"test": "jest --watch"` to your npm scripts in `package.json`
 
 Jest will read the `.babelrc` file to know what presets/plugins it should use.
 
@@ -81,7 +80,7 @@ Create a directory called `__mocks__`, with two files inside:
 `fileMock.js`:
 
 ```js
-export default 'whatever-string';
+export default "whatever-string";
 ```
 
 `styleMock.js`:
@@ -90,7 +89,7 @@ export default 'whatever-string';
 export default {};
 ```
 
-Finally we need to tell Jest to use these mocks for the file types we are importing. Add this to your `package.json`:
+Finally we need to tell Jest to use these mocks for the file types we are importing. Add this to the top level of your `package.json`:
 
 ```json
 "jest": {
@@ -103,7 +102,7 @@ Finally we need to tell Jest to use these mocks for the file types we are import
 
 ### Linting Setup
 
-**Note:** make sure you don't have ESLint installed globally (`npm rm -g eslint`), otherwise you can get really weird errors.
+**Note:** make sure you don't have ESLint installed globally (`npm rm -g eslint`), otherwise you can get really weird errors. If you still get errors after uninstalling try restarting your editor.
 
 1.  `npm install -D eslint babel-eslint eslint-plugin-import eslint-plugin-react eslint-config-react-minimal` to install dev dependencies
 2.  create `.eslintrc` file with:
@@ -115,18 +114,6 @@ Finally we need to tell Jest to use these mocks for the file types we are import
 ```
 
 I've packaged up all the necessary config into [eslint-config-react-minimal](https://github.com/oliverjam/eslint-config-react-minimal). Check out the readme if you want more information.
-
-3. Optionally create an npm script if you'd like to lint from the command line (instead of relying on editor integrations):
-
-```json
-{
-  "scripts": {
-    "lint": "eslint src/"
-  }
-}
-```
-
-4. You may need to restart your editor
 
 ### .gitignore
 
