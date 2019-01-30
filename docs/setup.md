@@ -7,7 +7,7 @@ If you want a more detailed explanation of what Parcel does then have a look at 
 ### Install
 
 1.  `npm init -y` to initialise your repo
-2.  `npm i -D parcel-bundler @babel/preset-env @babel/preset-react babel-plugin-transform-class-properties` to install dev dependencies
+2.  `npm i -D parcel-bundler @babel/preset-env @babel/preset-react @babel/plugin-proposal-class-properties` to install dev dependencies
 3.  `npm i react react-dom` to install dependencies
 4.  Create `.babelrc` file containing:
 
