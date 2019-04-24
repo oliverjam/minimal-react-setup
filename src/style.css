@@ -1,0 +1,17 @@
+body{
+  background-color:cyan;
+}
+input{
+  height: 30px;
+  weight:30px;
+}
+.cards-container{
+  display:flex;
+  flex-direction: row;
+  justify-content:space-evenly;
+}
+.inputs-container{
+  display:flex;
+  flex-direction: row;
+  justify-content:space-evenly;
+}
