@@ -4,7 +4,7 @@ import './style.css';
 class Image extends React.Component {
   render() {
     return (
-      <img />
+      <img src={this.props.source}/>
     );
   }
 }

@@ -4,7 +4,7 @@ import './style.css';
 class Statistics extends React.Component {
   render() {
     return (
-      <div>
+      <div id="table">
         <table>
           <tr>
             <td>Projects count</td>
