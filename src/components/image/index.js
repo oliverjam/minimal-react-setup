@@ -1,12 +1,12 @@
 import React from 'react';
 import './style.css';
 
-class Input extends React.Component {
+class Image extends React.Component {
   render() {
     return (
-      <input />
+      <img />
     );
   }
 }
 
-export default Input;
+export default Image;
