@@ -5,7 +5,7 @@ class GInfo extends React.Component {
   render() {
     return (
       <div className="gInfo">
-      <img src={this.props.url_pic}/>
+      <img id="profile" src={this.props.url_pic}/>
         <h1>{this.props.name}</h1>
       </div>
     );

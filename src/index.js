@@ -35,13 +35,14 @@ state = {
 render(){
   return(<div>
     <div className="inputs-container">
-      <Input updateUser={(value) => this.setState({ userOne: value})}/>
-      <button onClick={this.onclickHandler} />
+
+      <Input name= "userone" updateUser={(value) => this.setState({ userOne: value})}/>
+      <button className="myButton" onClick={this.onclickHandler} >Compare </button>
       <Input updateUser={(value) => this.setState({ userTwo: value})} />
     </div>
     <div className="cards-container">
     <PortfolioCard userdata={this.state.userOneData} />
-    <img />
+    <img id ="shadi" src="https://i.imgur.com/kHQES5U.png" />
      <PortfolioCard userdata={this.state.userTwoData}/>
     </div>
     </div>

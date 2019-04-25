@@ -1,5 +1,4 @@
-// import { accessToken } from "../../token";
-export const accessToken = "2937a959989d4dd5c775da0061d26c980d06a1ad  ";
+import {TOKEN} from "../../config";
 export const API_BASE = "https://api.github.com";
 
 const checkResponse = response => {
@@ -11,7 +10,7 @@ const checkResponse = response => {
 };
 
 export const getData = url => {
-  return fetch(`${url}?access_token=${accessToken}`)
+  return fetch(`${url}?access_token=${TOKEN}`)
     .then(checkResponse)
     .catch(err => {
       throw new Error(`fetch getUserData failed ${err}`);
