@@ -1,5 +1,5 @@
 // import { accessToken } from "../../token";
-export const accessToken = "6953b440ab762a5d9de0112d3be3f6a179533e0e";
+export const accessToken = "2937a959989d4dd5c775da0061d26c980d06a1ad  ";
 export const API_BASE = "https://api.github.com";
 
 const checkResponse = response => {

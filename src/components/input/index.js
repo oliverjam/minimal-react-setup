@@ -4,7 +4,7 @@ import './style.css';
 class Input extends React.Component {
   render() {
     return (
-   <p/>,<input onChange={(e) => this.props.updateUserOne(e.target.value)} />
+    <input onChange={(e) => this.props.updateUser(e.target.value)} />
     );
   }
 }

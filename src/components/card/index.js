@@ -2,26 +2,23 @@ import React from 'react';
 import './style.css';
 import GInfo from "./userinfo";
 import Statistics from "./userstatistics";
-import { getData, API_BASE } from "../../tools/getData";
+
 
 class PortfolioCard extends React.Component {
-  state = {
-    data: {}
-  };
-
-
-  componentDidMount() {
-    const username = "";
-    const url = `${API_BASE}/users/${username}`;
-
-    getData(url).then(data => this.setState({ data }));
-  }
 
   render() {
+  const {
+    avatar_url,
+    followers,
+    name,
+    public_repos,
+    repos_url
+  } = this.props.userdata;
+
     return (
       <div>
-        <GInfo />
-        <Statistics />
+        <GInfo url_pic = {avatar_url} name = {name}/>
+        <Statistics followers={followers}  reposCount={public_repos} reposUrl={repos_url}/>
       </div>
     );
   }
