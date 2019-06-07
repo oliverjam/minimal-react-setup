@@ -2,6 +2,9 @@
 
 This is a very minimal set-up to get started writing a React app. It bundles your code using [Parcel](https://parceljs.org) and has [Jest](https://jestjs.io/) configured to write tests with [react-testing-library](https://github.com/kentcdodds/react-testing-library).
 
+This was mostly designed as a learning aid to help understand how bundlers are set up.  
+**You should probably use [Create React App](https://facebook.github.io/create-react-app/docs/getting-started) for anything really important**
+
 ## Getting started
 
 ### Quick start
